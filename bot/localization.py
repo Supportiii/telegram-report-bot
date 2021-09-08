@@ -51,23 +51,43 @@ strings = {
         "need_admins_attention": 'Товарищи админы, в чате нужно ваше присутствие!\n\n'
                                  '<a href="{msg_url}">Перейти к чату</a>',
     },
+    "de": {
+        "error_no_reply": "Dieser Befehl kann nur als Antwort gesendet werden!",
+        "error_report_admin": "Whoa! Du kannst Admins nicht melden 😈",
+        "error_restrict_admin": "Du kannst keine Admins einschränken.",
+
+        "report_date_format": "%d.%m.%Y um %H:%M Uhr",
+        "report_message": '👆 Gesendet {time} (server time)\n'
+                          '<a href="{msg_url}">Zur Nachricht</a>',
+        "report_note": "\n\nNotiz: {note}",
+        "report_sent": "<i>Gemeldet</i>",
+
+        "action_del_msg": "Nachricht löschen",
+        "action_del_and_ban": "Löschen und Sperren",
+
+        "action_deleted": "\n\n🗑 <b>Löschen</b>",
+        "action_deleted_banned": "\n\n🗑❌ <b>Gelöscht, Nutzer gesperrt!</b>",
+        "action_deleted_partially": "Einige Nachrichten wurden nicht gefunden zum löschen",
+
+        "readonly_forever": "🙊 <i>Nutzer ist für immer stumm</i>",
+        "readonly_temporary": "🙊 <i>Nutzer bis {time} stumm. (server time)</i>",
+        "nomedia_forever": "🖼 <i>Nutzer für immer im Nur-Text-Modus.</i>",
+        "nomedia_temporary": "🖼 <i>Nutzer bis {time} im nur Text-Modus. (server time)</i>",
+
+        "need_admins_attention": 'Liebe Admins, ich sehne euch herbei!\n\n'
+                                 '<a href="{msg_url}">Zum Chat</a>',
 }
 
 
-def get_string(lang: str, key: str):
-    """
-    Get localized string. First, try language as set in config. Then, try English locale. Else - return stub string.
-    :param lang: preferred language
-    :param key: string name
-    :return: localized string
-    """
+ @@ -64,7 +89,7 @@ def get_string(lang: str, key: str):
     lang = strings.get(lang)
     if not lang:
         if not strings.get("en"):
             raise KeyError(f'Neither "{lang}" nor "en" locales found')
+            raise KeyError(f'Weder "{lang}" noch "en" gefunden.')
         else:
             lang = strings.get("en")
-    try:
+try:
         return lang[key]
     except KeyError:
         return strings.get("en").get(key, "ERR_NO_STRING")
